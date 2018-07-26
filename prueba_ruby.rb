@@ -15,21 +15,16 @@ def promedios(nota)
   nombre = line[0]
   arr = line[1].to_f + line[2].to_f + line[3].to_f + line[4].to_f + line[5].to_f
   promedio = arr / 5.0
-  if promedio < nota
-  puts "Alumno #{nombre} reprobo con un promedio final #{promedio}"
-  else
-  puts "Alumno #{nombre} aprobo con un promedio final #{promedio}"
-     end
-  end
-end
-
-
-def nuevo_archivo
-  crea_lista = listado
-  File.open('nuevo_archivo.txt', 'w') do |file|
-  crea_lista.each do |nombre, promedio|
-  file.puts "#{nombre} con promedio #{promedio}"
-    end
+      if promedio < nota
+        puts "Alumno #{nombre} reprobo con un promedio final #{promedio}"  
+      else
+        puts "Alumno #{nombre} aprobo con un promedio final #{promedio}"
+      end
+      if  promedio != arr
+        lista = File.open('prom_alumnos.csv', 'a')
+        lista.puts " Alumno #{nombre} y su promedio #{promedio}"
+        file.close
+      end
   end
 end
 
@@ -39,9 +34,10 @@ def inasistencias
   data.each do |lista|
   nombre = lista[0]
   asistencia = lista.select { |alu_asis| alu_asis == 'A' }.count
-  puts "Listado final de inasistencias de #{nombre} es de #{asistencia}"
+    puts "Listado final de inasistencias de #{nombre} es de #{asistencia}"
   end
 end
+
 
 def aprobado(nota)
   file = File.open("archivo.csv", "r")
@@ -52,8 +48,8 @@ def aprobado(nota)
   nombre = line[0]
   arr = line[1].to_f + line[2].to_f + line[3].to_f + line[4].to_f + line[5].to_f
   promedio = arr / 5.0
-  if promedio < nota
-  puts "Alumno aprobado ====>  #{nombre} "
+    if promedio < nota
+      puts "Alumno aprobado ====>  #{nombre} "
      end
   end
 end
@@ -62,21 +58,23 @@ end
 select = 0
 while select != 4
 
-puts "\n"
-
-puts '--------- Menú alumnos ---------'
 
 puts "\n"
-puts "Elija una opcion del Menu"
+puts "\n"
+puts ">>>Elija una opcion del Menu<<<"
 puts "\n"
 
-puts '1.- Alumnos y su promedio' 
 puts "\n"
-puts '2.- Cantidad total de inasistencias por alumno'
+puts '--------- Menu alumnos ---------'
 puts "\n"
-puts '3.- Promedio final de alumnos'
+
+puts '( 1 ) Alumnos y su promedio' 
 puts "\n"
-puts '4.- Salir'
+puts '( 2 ) Cantidad total de inasistencias por alumno'
+puts "\n"
+puts '( 3 ) Alumnos que aprobaron'
+puts "\n"
+puts '( 4 ) Salir'
 puts "\n"
 
 select = gets.chomp.to_i
@@ -98,10 +96,10 @@ select = gets.chomp.to_i
           puts "\n"
           aprobado(5)
   when 4
-          puts ' ******* Adios *****'
+          puts ' *******[[ Adios ]]******'
   else
           puts "\n"
-          puts 'Favor elija una opcion correcta del 1 al 4'
+          puts 'Por favor elija una opcion correcta del 1 al 4'
           puts "\n"
   end
 end
